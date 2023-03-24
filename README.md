@@ -11,7 +11,7 @@ This application is built using Next.js for the frontend and Node.js for the bac
 ## Getting Started
 To get started with this application, you'll need to follow these steps:
 
-- Clone the repository to your local machine using git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git.
+- Clone the repository to your local machine using git clone https://github.com/jordanporterbiz/finnieston-hostel.git.
 - Install the necessary dependencies using npm install.
 - Set up your environment variables for the third-party integrations in a .env file. See the .env.example file for the necessary variables.
 - Start the development server using npm run dev.
