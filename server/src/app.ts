@@ -10,11 +10,12 @@ const port = config.get<number>('port')
 const app = express()
 
 //  Middleware
+app.use(express.json())
 app.use(bodyParser.json());
-console.log('DB Connected')
+
 app.listen(port, async () => {
     logger.info(`App is running at http://localhost:${port}`)
     await connect();
 
-    routes(app)
+    routes(app);
 })
