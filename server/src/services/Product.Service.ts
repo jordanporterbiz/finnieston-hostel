@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Product, { IProduct } from '../models/Product';
+import Product, { IProduct } from '../models/Product.model';
 
 // // Connect to the MongoDB database
 // mongoose.connect(process.env.MONGODB_URI as string);
