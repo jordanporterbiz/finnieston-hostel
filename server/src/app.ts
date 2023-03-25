@@ -1,6 +1,6 @@
 import express from 'express'
 import config from 'config'
-import bodyParser from 'body-parser';
+//import bodyParser from 'body-parser';
 import connect from './utils/connect';
 import logger from './utils/logger';
 import routes from './routes/routes';
@@ -11,7 +11,6 @@ const app = express()
 
 //  Middleware
 app.use(express.json())
-app.use(bodyParser.json());
 
 app.listen(port, async () => {
     logger.info(`App is running at http://localhost:${port}`)
