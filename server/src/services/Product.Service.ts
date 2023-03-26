@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import Product, { IProduct } from '../models/Product.model';
+// import mongoose from 'mongoose';
+// import Product, { IProduct } from '../models/Product.model';
 
-// // Connect to the MongoDB database
-// mongoose.connect(process.env.MONGODB_URI as string);
+// // // Connect to the MongoDB database
+// // mongoose.connect(process.env.MONGODB_URI as string);
 
 
 
@@ -11,10 +11,8 @@ import Product, { IProduct } from '../models/Product.model';
 // // Define the CRUD routes for products
 // app.get('/products', async (req: Request, res: Response) => {
 //   try {
-//     const products = await Product.find();
-//     res.json(products);
+
 //   } catch (error) {
-//     res.status(500).json({ message: error.message });
 //   }
 // });
 

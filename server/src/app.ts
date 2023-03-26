@@ -1,6 +1,5 @@
 import express from 'express'
 import config from 'config'
-//import bodyParser from 'body-parser';
 import connect from './utils/connect';
 import logger from './utils/logger';
 import routes from './routes/routes';
