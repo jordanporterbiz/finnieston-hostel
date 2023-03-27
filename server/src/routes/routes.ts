@@ -5,10 +5,13 @@ import { createUserSchema } from "../schema/User.schema"
 
 function routes(app: Express) {
 
+    // Health Check
     app.get('/health', (req: Request, res: Response) => res.sendStatus(200))
-
+    
+    // User routes
     app.post('/api/users', validateResource(createUserSchema), createUserHandler)
 
+    // Session routes
 
 
     // Product routes
