@@ -1,72 +1,57 @@
-// import mongoose from 'mongoose';
-// import Product, { IProduct } from '../models/Product.model';
+import { omit } from 'lodash';
+import ProductModel, { ProductInput } from '../models/Product.model';
 
-// // // Connect to the MongoDB database
-// // mongoose.connect(process.env.MONGODB_URI as string);
+export async function createProduct(input: ProductInput) {
+
+    console.log(input)
+    try {
+        return await ProductModel.create(input)
+    } catch (e: any) {
+        throw new Error(e)
+        
+    }
+}
+
+
+export async function getProducts() {
+
+    try {
+        return await ProductModel.find();
+    } catch (e: any) {
+        throw new Error(e)  
+    }
+}
 
 
 
 
+export async function getProductById(id: string) {
 
-// // Define the CRUD routes for products
-// app.get('/products', async (req: Request, res: Response) => {
-//   try {
+    try {
+        const product = await ProductModel.findById(id);
+        return product
+    } catch (e: any) {
+        throw new Error(e)  
+    }
+}
 
-//   } catch (error) {
-//   }
-// });
+export async function updateProduct(id: string, input: ProductInput) {
 
-// app.get('/products/:id', async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const product = await Product.findById(id);
-//     if (!product) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json(product);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+    try {
+        const product = await ProductModel.findByIdAndUpdate(id, input, {new: true});
+        return product
+    } catch (e: any) {
+        throw new Error(e)  
+    }
+}
 
-// app.post('/products', async (req, res) => {
-//   const { name, price, description } = req.body;
-//   const newProduct: IProduct = new Product({ name, price, description });
-//   try {
-//     const product = await newProduct.save();
-//     res.status(201).json(product);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
 
-// app.patch('/products/:id', async (req, res) => {
-//   const { id } = req.params;
-//   const { name, price, description } = req.body;
-//   try {
-//     const product = await Product.findByIdAndUpdate(
-//       id,
-//       { name, price, description },
-//       { new: true }
-//     );
-//     if (!product) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json(product);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+export async function deleteProduct(id: string) {
 
-// app.delete('/products/:id', async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const product = await Product.findByIdAndDelete(id);
-//     if (!product) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json({ message: 'Product deleted successfully' });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+    try {
+        const product = await ProductModel.findByIdAndDelete(id);
+        return product
+    } catch (e: any) {
+        throw new Error(e)  
+    }
+}
