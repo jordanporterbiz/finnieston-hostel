@@ -12,6 +12,8 @@ export const deserialiseUser = (
         ''
     )
 
+    const refreshToken = get(req, 'headers.x-refresh')
+
     if (!accessToken) return next()
 
     const { decoded, expired } = verifyJwt(accessToken)
@@ -19,6 +21,9 @@ export const deserialiseUser = (
     if (decoded) {
         res.locals.user = decoded
         return next()
+    }
+
+    if (expired && refreshToken) {
     }
 
     return next()
