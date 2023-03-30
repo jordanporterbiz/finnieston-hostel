@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose'
+import { FilterQuery, UpdateQuery } from 'mongoose'
 import SessionModel, { SchemaDocument } from '../models/Session.model'
 
 export const createSession = async (userId: string, userAgent: string) => {
@@ -6,14 +6,21 @@ export const createSession = async (userId: string, userAgent: string) => {
     return session.toJSON()
 }
 
-export const deleteSession = async (sessionId: string) => { 
+export const deleteSession = async (sessionId: string) => {
     const session = await SessionModel.findByIdAndDelete(sessionId)
     return session
 }
 
 export const findSessions = async (query: FilterQuery<SchemaDocument>) => {
-    const sessions = await SessionModel.find(query).lean();
+    const sessions = await SessionModel.find(query).lean()
     return sessions
 }
 
 export const findSession = async (sessionId: string) => {}
+
+export const updateSession = async (
+    query: FilterQuery<SchemaDocument>,
+    update: UpdateQuery<SchemaDocument>
+) => {
+    return SessionModel.updateOne(query, update)
+}

@@ -9,11 +9,11 @@ import {
 } from '../services/Booking.service'
 //import { BookingSchema } from '../schema/Booking.schema'
 
-    // app.get('/api/bookings', getBookingsHandler)
-    // app.get('/api/bookings/:id', getBookingByIdHandler)
-    // app.post('/api/bookings', createBookingHandler)
-    // app.put('/api/bookings/:id', updateBookingHandler)
-    // app.delete('/api/bookings/:id', deleteBookingHandler)
+// app.get('/api/bookings', getBookingsHandler)
+// app.get('/api/bookings/:id', getBookingByIdHandler)
+// app.post('/api/bookings', createBookingHandler)
+// app.put('/api/bookings/:id', updateBookingHandler)
+// app.delete('/api/bookings/:id', deleteBookingHandler)
 
 export const getBookingsHandler = async (req: Request, res: Response) => {
     try {

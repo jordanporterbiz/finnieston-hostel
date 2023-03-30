@@ -18,8 +18,14 @@ import {
 import { BookingSchema } from '../schema/Booking.schema'
 import { createUserHandler } from '../controllers/User.controller'
 import { createUserSchema } from '../schema/User.schema'
-import { createSessionHandler, getSessionsHandler } from '../controllers/Session.controller'
+import {
+    createSessionHandler,
+    deleteSessionHandler,
+    getSessionsHandler,
+    getSessionByIdHandler,
+} from '../controllers/Session.controller'
 import { createSessionSchema } from '../schema/Session.schema'
+import { requireUser } from '../middleware/requireUser'
 
 function routes(app: Express) {
     // Health Check
@@ -33,10 +39,14 @@ function routes(app: Express) {
     )
 
     // Session routes
-    app.post('/api/sessions', validateResource(createSessionSchema), createSessionHandler)
-    // app.delete('/api/sessions', deleteSessionHandler)
-    app.get('/api/sessions', getSessionsHandler)
-    // app.get('/sessions/:id', getSessionByIdHandler)
+    app.post(
+        '/api/sessions',
+        validateResource(createSessionSchema),
+        createSessionHandler
+    )
+    app.delete('/api/sessions', requireUser, deleteSessionHandler)
+    app.get('/api/sessions', requireUser, getSessionsHandler)
+    app.get('/sessions/:id', requireUser, getSessionByIdHandler)
 
     // Booking routes
     app.get('/api/bookings', getBookingsHandler)
@@ -76,7 +86,6 @@ function routes(app: Express) {
     // app.post('/api/invoices', createInvoiceHandler)
     // app.put('/api/invoices/:id', updateInvoiceHandler)
     // app.delete('/api/invoices/:id', deleteInvoiceHandler)
-
 }
 
 export default routes
