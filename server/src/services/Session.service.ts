@@ -1,7 +1,9 @@
 import { FilterQuery, UpdateQuery } from 'mongoose'
 import SessionModel, { SchemaDocument } from '../models/Session.model'
-import { verifyJwt } from '../utils/jwt.utils'
+import { verifyJwt, signJwt } from '../utils/jwt.utils'
 import { get } from 'lodash'
+import { findUser } from './User.service'
+import config from 'config'
 
 export const createSession = async (userId: string, userAgent: string) => {
     const session = await SessionModel.create({ user: userId, userAgent })
@@ -30,7 +32,7 @@ export const updateSession = async (
 export const reIssueAccessToken = async ({
     refreshToken,
 }: {
-    refreshToken: string
+    refreshToken: string 
 }) => {
 
     const {decoded} = verifyJwt(refreshToken)
@@ -39,19 +41,22 @@ export const reIssueAccessToken = async ({
 
     const session = await SessionModel.findById(get(decoded, '_id'))
 
-    // if (!session || !session.isValid) throw new Error('Invalid refresh token')
+    if (!session || !session.valid) throw new Error('Invalid refresh token')
 
-    // const user = await UserModel.findById(session.user)
+    const user = await findUser({ _id: session.user })
 
-    // // const accessToken = await createAccessToken({
-    // //     user: session.user,
-    // //     session: session._id,
-    // // })
+    if (!user) throw new Error('User not found')
 
-    // // const refreshToken = await createRefreshToken({
-    // //     user: session.user,
-    // //     session: session._id,
-    // // })
 
-    // return { accessToken, refreshToken }
+    const accessToken = signJwt(
+        { ...user, session: session._id },
+        { expiresIn: config.get('accessTokenTtl') } // 15 minutes
+    )
+
+    // const refreshToken = await createRefreshToken({
+    //     user: session.user,
+    //     session: session._id,
+    // })
+
+    return accessToken
 }
