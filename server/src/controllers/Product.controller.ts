@@ -1,82 +1,74 @@
-import { Request, Response} from 'express'
+import { Request, Response } from 'express'
 import logger from '../utils/logger'
-import { createProduct, getProductById, getProducts, deleteProduct, updateProduct } from '../services/Product.service'
+import {
+    createProduct,
+    getProductById,
+    getProducts,
+    deleteProduct,
+    updateProduct,
+} from '../services/Product.service'
 import { productSchema } from '../schema/Product.schema'
 
+// app.get('/products/:id', getProductByIdHandler)
+// app.post('/products', createProductHandler)
+// app.patch('/products/:id', updateProductHandler)
+// app.delete('/products/:id', deleteProductHandler)
 
-    // app.get('/products/:id', getProductByIdHandler)
-    // app.post('/products', createProductHandler)
-    // app.patch('/products/:id', updateProductHandler)
-    // app.delete('/products/:id', deleteProductHandler)
-
-
-export const getProductsHandler = async (
-    req: Request, 
-    res: Response
-    ) =>{
+export const getProductsHandler = async (req: Request, res: Response) => {
     try {
-        const products = await getProducts();
+        const products = await getProducts()
     } catch (e: any) {
         logger.error(e)
         return res.status(400).send(e.message)
     }
 }
 
-export const getProductByIdHandler = async (
-    req: Request, 
-    res: Response
-    ) =>{
+export const getProductByIdHandler = async (req: Request, res: Response) => {
     try {
-        const product = await getProductById(req.body);
-        
+        const product = await getProductById(req.body)
+
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            return res.status(404).json({ message: 'Product not found' })
         }
-        return res.send(product.toJSON());
+        return res.send(product.toJSON())
     } catch (e: any) {
         logger.error(e)
         return res.status(409).send(e.message)
     }
 }
 
-
-export const createProductHandler = async (
-    req: Request, 
-    res: Response
-    ) =>{
+export const createProductHandler = async (req: Request, res: Response) => {
     try {
-        const product = await createProduct(req.body);
-        return res.send(product.toJSON());
+        const product = await createProduct(req.body)
+        return res.send(product.toJSON())
     } catch (e: any) {
         logger.error(e)
         return res.status(409).send(e.message)
     }
 }
 
-export const deleteProductHandler = async (
-    req: Request, 
-    res: Response
-    ) =>{
+export const deleteProductHandler = async (req: Request, res: Response) => {
     try {
-    const { id } = req.params;
-    const product = await deleteProduct(req.body);
-    if (!product) return res.status(404).json({ message: 'Product not found' });         
-    return res.statusCode === 200 ? res.send('Product deleted') : res.send('Product not deleted')
+        const { id } = req.params
+        const product = await deleteProduct(req.body)
+        if (!product)
+            return res.status(404).json({ message: 'Product not found' })
+        return res.statusCode === 200
+            ? res.send('Product deleted')
+            : res.send('Product not deleted')
     } catch (e: any) {
         logger.error(e)
         return res.status(500).send(e.message)
     }
 }
 
-export const updateProductHandler = async (
-    req: Request, 
-    res: Response
-    ) =>{
+export const updateProductHandler = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-        const updatedProduct = await updateProduct(id, req.body);
-        if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });         
-        return res.send(updatedProduct.toJSON());
+        const { id } = req.params
+        const updatedProduct = await updateProduct(id, req.body)
+        if (!updatedProduct)
+            return res.status(404).json({ message: 'Product not found' })
+        return res.send(updatedProduct.toJSON())
     } catch (e: any) {
         logger.error(e)
         return res.status(400).send(e.message)

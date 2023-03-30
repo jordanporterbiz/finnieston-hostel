@@ -3,21 +3,27 @@ import { object, string, TypeOf } from 'zod'
 export const createUserSchema = object({
     body: object({
         name: string({
-            required_error:'Name is required'
+            required_error: 'Name is required',
         }),
         password: string({
-            required_error:'Password is required'
-        }).min(8, 'Password is too short. Password should be 8 characters or more'),
+            required_error: 'Password is required',
+        }).min(
+            8,
+            'Password is too short. Password should be 8 characters or more'
+        ),
         passwordConfirmation: string({
-            required_error: 'password confirmation is required'
+            required_error: 'password confirmation is required',
         }),
         email: string({
-            required_error:'Email is required'
-        }).email('Not a valid email. Email is required')
+            required_error: 'Email is required',
+        }).email('Not a valid email. Email is required'),
     }).refine((data) => data.password === data.passwordConfirmation, {
         message: 'Passwords do not match',
         path: ['passwordConfirmation'],
     }),
-});
+})
 
-export type CreateUserInput = Omit<TypeOf<typeof createUserSchema>, 'body.passwordConfirmation'>
+export type CreateUserInput = Omit<
+    TypeOf<typeof createUserSchema>,
+    'body.passwordConfirmation'
+>
