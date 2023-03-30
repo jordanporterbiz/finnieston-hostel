@@ -18,7 +18,7 @@ import {
 import { BookingSchema } from '../schema/Booking.schema'
 import { createUserHandler } from '../controllers/User.controller'
 import { createUserSchema } from '../schema/User.schema'
-import { createSessionHandler } from '../controllers/Session.controller'
+import { createSessionHandler, getSessionsHandler } from '../controllers/Session.controller'
 import { createSessionSchema } from '../schema/Session.schema'
 
 function routes(app: Express) {
@@ -35,7 +35,7 @@ function routes(app: Express) {
     // Session routes
     app.post('/api/sessions', validateResource(createSessionSchema), createSessionHandler)
     // app.delete('/api/sessions', deleteSessionHandler)
-    //app.get('/api/sessions', getSessionsHandler)
+    app.get('/api/sessions', getSessionsHandler)
     // app.get('/sessions/:id', getSessionByIdHandler)
 
     // Booking routes

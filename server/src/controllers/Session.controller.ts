@@ -1,7 +1,7 @@
 import config from 'config'
 import { Request, Response } from 'express'
 import { UserDocument } from '../models/User.model'
-import { createSession } from '../services/Session.service'
+import { createSession, findSessions } from '../services/Session.service'
 import { validatePassword } from '../services/User.service'
 import { signJwt } from '../utils/jwt.utils'
 import logger from '../utils/logger'
@@ -32,4 +32,13 @@ export async function createSessionHandler(
         logger.error(e)
         return res.sendStatus(500)
     }
+}
+
+export async function getSessionsHandler(
+    req: Request,
+    res: Response
+): Promise<Response> {
+    const userId = res.locals.user._id 
+    const sessions = await findSessions({ user: userId, valid: false})
+    return res.send(sessions)
 }
