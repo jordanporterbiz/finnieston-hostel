@@ -1,4 +1,3 @@
-import { omit } from 'lodash'
 import ProductModel, { ProductInput } from '../models/Product.model'
 
 export async function createProduct(input: ProductInput) {

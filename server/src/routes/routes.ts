@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { createUserHandler } from '../controllers/User.controller'
+import validateResource from '../middleware/validateResource'
 import {
     getProductsHandler,
     getProductByIdHandler,
@@ -8,7 +8,15 @@ import {
     deleteProductHandler,
 } from '../controllers/Product.controller'
 import { productSchema } from '../schema/Product.schema'
-import validateResource from '../middleware/validateResource'
+import {
+    getBookingsHandler,
+    getBookingByIdHandler,
+    createBookingHandler,
+    updateBookingHandler,
+    deleteBookingHandler,
+} from '../controllers/Booking.controller'
+import { BookingSchema } from '../schema/Booking.schema'
+import { createUserHandler } from '../controllers/User.controller'
 import { createUserSchema } from '../schema/User.schema'
 
 function routes(app: Express) {
@@ -29,11 +37,11 @@ function routes(app: Express) {
     // app.get('/sessions/:id', getSessionByIdHandler)
 
     // Booking routes
-    // app.get('/api/bookings', getBookingsHandler)
-    // app.get('/api/bookings/:id', getBookingByIdHandler)
-    // app.post('/api/bookings', createBookingHandler)
-    // app.put('/api/bookings/:id', updateBookingHandler)
-    // app.delete('/api/bookings/:id', deleteBookingHandler)
+    app.get('/api/bookings', getBookingsHandler)
+    app.get('/api/bookings/:id', getBookingByIdHandler)
+    app.post('/api/bookings', createBookingHandler)
+    app.put('/api/bookings/:id', updateBookingHandler)
+    app.delete('/api/bookings/:id', deleteBookingHandler)
 
     // Product routes
     app.get('/api/products', getProductsHandler)
@@ -52,6 +60,21 @@ function routes(app: Express) {
     // app.post('/api/orders', createOrderHandler)
     // app.put('/api/orders/:id', updateOrderHandler)
     // app.delete('/api/orders/:id', deleteOrderHandler)
+
+    // Payment routes
+    // app.get('/api/payments', getPaymentsHandler)
+    // app.get('/api/payments/:id', getPaymentByIdHandler)
+    // app.post('/api/payments', createPaymentHandler)
+    // app.put('/api/payments/:id', updatePaymentHandler)
+    // app.delete('/api/payments/:id', deletePaymentHandler)
+
+    // Invoice routes
+    // app.get('/api/invoices', getInvoicesHandler)
+    // app.get('/api/invoices/:id', getInvoiceByIdHandler)
+    // app.post('/api/invoices', createInvoiceHandler)
+    // app.put('/api/invoices/:id', updateInvoiceHandler)
+    // app.delete('/api/invoices/:id', deleteInvoiceHandler)
+
 }
 
 export default routes
