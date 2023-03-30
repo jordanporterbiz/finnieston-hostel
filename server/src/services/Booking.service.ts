@@ -1,7 +1,8 @@
 import BookingModel, { BookingInput } from '../models/Booking.model'
+import logger from '../utils/logger'
 
 export async function createBooking(input: BookingInput) {
-    console.log(input)
+    logger.info(input)
     try {
         return await BookingModel.create(input)
     } catch (e: any) {

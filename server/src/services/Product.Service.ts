@@ -1,7 +1,8 @@
 import ProductModel, { ProductInput } from '../models/Product.model'
+import logger from '../utils/logger'
 
 export async function createProduct(input: ProductInput) {
-    console.log(input)
+    logger.info(input)
     try {
         return await ProductModel.create(input)
     } catch (e: any) {
