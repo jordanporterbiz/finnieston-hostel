@@ -30,7 +30,7 @@ export async function createSessionHandler(
 
         const refreshToken = signJwt(
             { ...user, session: session._id },
-            { expiresIn: config.get('accessTokenTtl') } // 15 minutes
+            { expiresIn: config.get('refreshTokenTtl') } // 15 minutes
         )
 
         return res.status(201).send({ accessToken, refreshToken })

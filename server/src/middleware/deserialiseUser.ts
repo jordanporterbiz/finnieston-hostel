@@ -24,17 +24,17 @@ export const deserialiseUser = async (
         return next()
     }
 
-    // if (expired && refreshToken) {
-    //     const newAccessToken = await reIssueAccessToken( { refreshToken } )
+    if (expired && refreshToken) {
+        const newAccessToken = await reIssueAccessToken( refreshToken.toString()  )
         
-    //     if(newAccessToken) {
-    //         res.setHeader('x-access-token', newAccessToken)
-    //     }
+        if(newAccessToken) {
+            res.setHeader('x-access-token', newAccessToken)
+        }
 
-    //     const result = verifyJwt(newAccessToken)
-    //     res.locals.user = result.decoded
-    //     return next()
-    // }
+        const result = verifyJwt(newAccessToken)
+        res.locals.user = result.decoded
+         return next()
+    }
 
 
 

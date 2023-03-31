@@ -29,17 +29,15 @@ export const updateSession = async (
     return SessionModel.updateOne(query, update)
 }
 
-export const reIssueAccessToken = async ({
-    refreshToken,
-}: {
-    refreshToken: string 
-}) => {
+export const reIssueAccessToken = async (
+    refreshToken: string
+) => {
 
     const {decoded} = verifyJwt(refreshToken)
 
     if(!decoded || !get(decoded, '_id')) throw new Error('Invalid refresh token')
 
-    const session = await SessionModel.findById(get(decoded, '_id'))
+    const session = await SessionModel.findById(get(decoded, 'session'))
 
     if (!session || !session.valid) throw new Error('Invalid refresh token')
 
