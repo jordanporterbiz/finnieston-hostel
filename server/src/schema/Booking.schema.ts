@@ -3,15 +3,31 @@ import * as z from 'zod'
 // TODO: Refactor Booking Validation
 export const BookingSchema = z.object({
     id: z.number(),
-    guestName: z.string().min(1),
-    guestEmail: z.string().email(),
-    guestPhone: z.string(),
-    checkInDate: z.date(),
-    checkOutDate: z.date(),
-    roomType: z.string().min(1),
+    guestName: z.string({
+        required_error: 'Name is required',
+    }).min(1),
+    guestEmail: z.string({
+        required_error: 'Email is required',
+    }).email(),
+    guestPhone: z.string({
+        required_error: 'Phone number is required',
+    }),
+    checkInDate: z.date({
+        required_error: 'Check-in date is required',
+    }),
+    checkOutDate: z.date({
+        required_error: 'Check-out date is required',
+    }),
+    roomType: z.string({
+        required_error: 'Room type is required',
+    }).min(1),
     roomNumber: z.string().min(1),
-    price: z.number().min(0),
-    paymentMethod: z.string().min(1),
+    price: z.number({
+        required_error: 'Price is required',
+    }).min(0),
+    paymentMethod: z.string({
+        required_error: 'Payment method is required',
+    }).min(1),
     status: z.enum(['confirmed', 'pending', 'cancelled', 'completed']),
     additionalServices: z.array(z.string().min(1)),
     cancellationPolicy: z.string().min(1),
